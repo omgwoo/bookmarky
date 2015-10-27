@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="redxBookmarkyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="BookmarkID" />
+          </Key>
+          <Property Name="BookmarkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAuthToken">
+          <Key>
+            <PropertyRef Name="UserAuthTokenID" />
+          </Key>
+          <Property Name="UserAuthTokenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AuthToken" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExpireDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsEmailVerified" Type="bit" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="IsActive" Type="bit" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityContainer Name="redxBookmarkyModelStoreContainer">
+          <EntitySet Name="Bookmark" EntityType="Self.Bookmark" Schema="redxadmin" store:Type="Tables" />
+          <EntitySet Name="UserAuthToken" EntityType="Self.UserAuthToken" Schema="redxadmin" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="redxadmin" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="redxBookmarkyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEmailVerified" Type="Boolean" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityContainer Name="redxBookmarkyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Bookmarks" EntityType="redxBookmarkyModel.Bookmark" />
+          <EntitySet Name="UserAuthTokens" EntityType="redxBookmarkyModel.UserAuthToken" />
+        </EntityContainer>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="BookmarkID" />
+          </Key>
+          <Property Name="BookmarkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserAuthToken">
+          <Key>
+            <PropertyRef Name="UserAuthTokenID" />
+          </Key>
+          <Property Name="UserAuthTokenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="AuthToken" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="redxBookmarkyModelStoreContainer" CdmEntityContainer="redxBookmarkyEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="redxBookmarkyModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookmarks">
+            <EntityTypeMapping TypeName="redxBookmarkyModel.Bookmark">
+              <MappingFragment StoreEntitySet="Bookmark">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BookmarkID" ColumnName="BookmarkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAuthTokens">
+            <EntityTypeMapping TypeName="redxBookmarkyModel.UserAuthToken">
+              <MappingFragment StoreEntitySet="UserAuthToken">
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="AuthToken" ColumnName="AuthToken" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserAuthTokenID" ColumnName="UserAuthTokenID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

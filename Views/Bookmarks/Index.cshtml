@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Bookmarky.Entities.Bookmark>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My bookmarks</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Title           
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.URL)
+        </th>        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <span>@item.Comment</span>
+        </td> 
+        <td>
+            <a href="@item.URL">@item.URL</a>
+        </td>   
+    </tr>
+}
+
+</table>

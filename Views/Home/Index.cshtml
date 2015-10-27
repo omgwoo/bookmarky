@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Bookmarky</h1>
+    <p class="lead">Valeness wanted a bookmarklet that posted that site to somewhere where he could retrieve it later.</p>
+    
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Create this bookmarklet</h2>
+        <p>
+            @if (User.Identity.IsAuthenticated)
+            {  
+                <span>Drag this link to your bookmarks bar</span>
+                            <a title="Post to bookmarky!" href="javascript: (function(){ var comment = prompt(&quot;Add a title?&quot;, &quot;No title.&quot;);var xhttp = new XMLHttpRequest(); xhttp.open(&quot;POST&quot;, &quot;http://bookmarky.redx.rocks/Bookmarks/PostFromPlugin&quot; , true); xhttp.setRequestHeader(&quot;Content-type&quot;, &quot;application/x-www-form-urlencoded&quot; ); xhttp.send(&quot;url=&quot; + window.location.href + &quot; &authtoken=&quot; + &quot;@ViewBag.uat&comment=&quot;+comment); })()">Post to bookmarky!</a>
+            }
+            else
+            {
+                <span>Login to see bookmarklet.</span>
+            }
+        
+        </p>
+        
+    </div>
+    <div class="col-md-4">
+        <h2>Test accounts</h2>
+        <p>username Test password Welcome1</p><br />
+        <p>username Test2 password Welcome2</p>
+        
+    </div>
+    <div class="col-md-4">
+        <h2>Lots left to do..</h2>
+        <p>Probably have to make this pretty.</p>
+        
+    </div>
+</div>
